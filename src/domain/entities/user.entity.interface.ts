@@ -6,9 +6,9 @@ export type User = InferSelectModel<typeof UsersEntity>;
 
 export type UserWithoutPassword = Omit<User, 'password'>;
 
-export type ICreateUserDTO = Pick<InferInsertModel<typeof UsersEntity>, 'age' | 'name' | 'phone' | 'email' | 'password'>;
+export type ICreateUserDTO = Pick<InferInsertModel<typeof UsersEntity>, 'name' | 'email' | 'password'>;
 
-export type IUpdateUserDTO = Pick<Partial<User>, 'age' | 'name' | 'phone'>;
+export type IUpdateUserDTO = Pick<Partial<User>, 'name'>;
 
 export type IUserLoginDTO = Pick<User, 'email' | 'password'>;
 

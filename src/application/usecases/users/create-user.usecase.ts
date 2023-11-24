@@ -23,8 +23,6 @@ export class CreateUserUseCase implements ICreateUserUseCase {
                 id: UsersEntity.id,
                 name: UsersEntity.name,
                 email: UsersEntity.email,
-                phone: UsersEntity.phone,
-                age: UsersEntity.age,
                 createdAt: UsersEntity.createdAt,
                 updatedAt: UsersEntity.updatedAt,
             });

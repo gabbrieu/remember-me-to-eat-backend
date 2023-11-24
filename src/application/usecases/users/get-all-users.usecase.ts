@@ -11,9 +11,7 @@ export class GetAllUsersUseCase implements IGetAllUsersUseCase {
                 .select({
                     id: UsersEntity.id,
                     name: UsersEntity.name,
-                    age: UsersEntity.age,
                     email: UsersEntity.email,
-                    phone: UsersEntity.phone,
                     createdAt: UsersEntity.createdAt,
                     updatedAt: UsersEntity.updatedAt,
                 })

@@ -1,7 +1,7 @@
-import { drizzle } from 'drizzle-orm/mysql2';
-import mysql from 'mysql2/promise';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
 
-export const connection: mysql.Connection = await mysql.createConnection({
+export const connection = postgres({
     host: Bun.env.DATABASE_HOST,
     database: Bun.env.DATABASE_NAME,
     port: Number(Bun.env.DATABASE_PORT),

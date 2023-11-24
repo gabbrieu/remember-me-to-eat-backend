@@ -13,9 +13,7 @@ export class GetOneUserUseCase implements IGetOneUserUseCase {
                 .select({
                     id: UsersEntity.id,
                     name: UsersEntity.name,
-                    age: UsersEntity.age,
                     email: UsersEntity.email,
-                    phone: UsersEntity.phone,
                     createdAt: UsersEntity.createdAt,
                     updatedAt: UsersEntity.updatedAt,
                 })

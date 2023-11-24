@@ -1,8 +1,8 @@
 import { sql } from 'drizzle-orm';
-import { bigint, mysqlTable, text, timestamp, varchar } from 'drizzle-orm/mysql-core';
+import { pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
-export const UsersEntity = mysqlTable('users', {
-    id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
+export const UsersEntity = pgTable('users', {
+    id: serial('id').primaryKey(),
     name: varchar('name', { length: 800 }).notNull(),
     email: varchar('email', { length: 256 }).notNull().unique(),
     password: text('password').notNull(),

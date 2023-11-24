@@ -3,7 +3,7 @@ import { defineConfig } from 'drizzle-kit';
 export default defineConfig({
     schema: './src/infrastructure/entities/*.entity.ts',
     out: './drizzle',
-    driver: 'mysql2',
+    driver: 'pg',
     dbCredentials: {
         host: process.env.DATABASE_HOST || 'database',
         database: process.env.DATABASE_NAME || 'app',
