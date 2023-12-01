@@ -9,7 +9,7 @@ describe('Create user route', () => {
     const baseURL: string = `${app.server?.hostname}:${app.server?.port}/users`;
 
     afterEach(async () => {
-        await UserSetup.deleteAllUsers();
+        await UserSetup.deleteAllData();
     });
 
     afterAll(async () => {
@@ -18,7 +18,6 @@ describe('Create user route', () => {
 
     it('should create the user', async () => {
         const sentBody: ICreateUserDTO = {
-            age: 20,
             email: 'test@gmail.com',
             name: 'userMock',
             password: 'test123',
@@ -37,7 +36,6 @@ describe('Create user route', () => {
         const userCreated: UserWithoutPassword = await UserSetup.createOneUserMock();
 
         const sentBody: ICreateUserDTO = {
-            age: 20,
             email: userCreated.email,
             name: 'userMock',
             password: 'test123',
@@ -45,7 +43,7 @@ describe('Create user route', () => {
         const response: Response = await appTest.app.handle(
             new Request(baseURL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(sentBody) })
         );
-        const responseBody: UserWithoutPassword = await response.json<UserWithoutPassword>();
+        const responseBody = await response.json<{ message: string }>();
 
         expect(response.status).toBe(409);
         expect(responseBody).toStrictEqual({ message: 'User with this email already exists' });

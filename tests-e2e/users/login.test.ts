@@ -16,7 +16,7 @@ describe('Login route', () => {
     });
 
     afterAll(async () => {
-        await UserSetup.deleteAllUsers();
+        await UserSetup.deleteAllData();
         await appTest.app.stop();
     });
 

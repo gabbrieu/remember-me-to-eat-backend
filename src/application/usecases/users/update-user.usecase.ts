@@ -19,9 +19,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
                 .returning({
                     id: UsersEntity.id,
                     name: UsersEntity.name,
-                    age: UsersEntity.age,
                     email: UsersEntity.email,
-                    phone: UsersEntity.phone,
                     createdAt: UsersEntity.createdAt,
                     updatedAt: UsersEntity.updatedAt,
                 });

@@ -18,7 +18,7 @@ describe('Delete user route', () => {
     });
 
     afterAll(async () => {
-        await UserSetup.deleteAllUsers();
+        await UserSetup.deleteAllData();
         await appTest.app.stop();
     });
 

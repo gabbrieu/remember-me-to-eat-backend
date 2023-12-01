@@ -5,8 +5,8 @@ import { IUserSetup, UserSetup } from '@test/shared';
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test';
 
 describe('Logout route', () => {
-    const appTest = new UserRoutes(app);
     const baseURL: string = `${app.server?.hostname}:${app.server?.port}/users`;
+    let appTest: UserRoutes;
     let userMock: UserWithoutPassword;
     let cookie: string;
 
@@ -14,10 +14,11 @@ describe('Logout route', () => {
         const userSetup: IUserSetup = await UserSetup.setup();
         userMock = userSetup.userMock;
         cookie = userSetup.cookie;
+        appTest = userSetup.appTest;
     });
 
     afterAll(async () => {
-        await UserSetup.deleteAllUsers();
+        await UserSetup.deleteAllData();
         await appTest.app.stop();
     });
 

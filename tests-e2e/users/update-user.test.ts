@@ -6,8 +6,8 @@ import { ErrorResponse } from '@utils/errors.util';
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test';
 
 describe('Update one user route', () => {
-    const appTest = new UserRoutes(app);
     const baseURL: string = `${app.server?.hostname}:${app.server?.port}/users`;
+    let appTest: UserRoutes;
     let userMock: UserWithoutPassword;
     let cookie: string;
 
@@ -15,16 +15,16 @@ describe('Update one user route', () => {
         const userSetup: IUserSetup = await UserSetup.setup();
         userMock = userSetup.userMock;
         cookie = userSetup.cookie;
+        appTest = userSetup.appTest;
     });
 
     afterAll(async () => {
-        await UserSetup.deleteAllUsers();
+        await UserSetup.deleteAllData();
         await appTest.app.stop();
     });
 
     it('should update one user', async () => {
         const sentBody: IUpdateUserDTO = {
-            age: 100,
             name: 'Update user mock',
         };
         const response: Response = await appTest.app.handle(
@@ -37,7 +37,7 @@ describe('Update one user route', () => {
         const responseBody: UserWithoutPassword = await response.json<UserWithoutPassword>();
 
         expect(response.status).toBe(200);
-        expect(responseBody).toStrictEqual({ ...userMock, age: 100, name: 'Update user mock' } as UserWithoutPassword);
+        expect(responseBody).toStrictEqual({ ...userMock, name: 'Update user mock' } as UserWithoutPassword);
     });
 
     it('should throw a NOT_FOUND_ERROR when the user does not exists', async () => {
