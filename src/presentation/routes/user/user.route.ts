@@ -15,7 +15,7 @@ export class UserRoutes {
         this.initRoutes();
     }
 
-    private initRoutes() {
+    private initRoutes(): void {
         const userController: UsersController = makeUsersController();
 
         this.app.group('/users', (app) =>

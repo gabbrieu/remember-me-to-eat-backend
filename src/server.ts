@@ -1,5 +1,5 @@
 import jwt from '@elysiajs/jwt';
-import { UserRoutes } from '@presentation/routes';
+import { MealRoutes, UserRoutes } from '@presentation/routes';
 import { ConflictError, ErrorResponse, UnauthorizedError } from '@utils/errors.util';
 import { Elysia } from 'elysia';
 
@@ -30,6 +30,7 @@ export const app = new Elysia({ cookie: { secrets: Bun.env.JWT_SECRET } })
     });
 
 new UserRoutes(app);
+new MealRoutes(app);
 app.listen(Bun.env.PORT || 3000);
 console.log(`🦊 Elysia app is running at ${app.server?.hostname}:${app.server?.port}`);
 

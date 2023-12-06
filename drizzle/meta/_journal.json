@@ -8,6 +8,13 @@
       "when": 1700856301227,
       "tag": "0000_fearless_angel",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1701792231998,
+      "tag": "0001_sudden_corsair",
+      "breakpoints": true
     }
   ]
 }

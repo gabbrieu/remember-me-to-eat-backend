@@ -16,7 +16,7 @@ import {
 } from '@domain/usecases';
 import { UsersController } from '@presentation/controllers';
 
-export const makeUsersController = () => {
+export const makeUsersController = (): UsersController => {
     const getAllUsersUseCase: IGetAllUsersUseCase = makeGetAllUsersUseCase();
     const createUserUseCase: ICreateUserUseCase = makeCreateUserUseCase();
     const getOneUserUseCase: IGetOneUserUseCase = makeGetOneUserUseCase();

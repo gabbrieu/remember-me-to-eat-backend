@@ -1,4 +1,5 @@
-import { sql } from 'drizzle-orm';
+import { MealsEntity } from '@infrastructure/entities';
+import { relations, sql } from 'drizzle-orm';
 import { pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const UsersEntity = pgTable('users', {
@@ -13,3 +14,7 @@ export const UsersEntity = pgTable('users', {
         .notNull()
         .default(sql`CURRENT_TIMESTAMP`),
 });
+
+export const usersRelations = relations(UsersEntity, ({ many }) => ({
+    MealEntity: many(MealsEntity),
+}));
