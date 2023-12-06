@@ -17,15 +17,20 @@ export class MealRoutes {
         const mealsController: MealsController = makeMealController();
 
         this.app.group('meals', (app) =>
-            app.use(isAuthenticated).post(
-                '/',
-                async ({ body }) => {
-                    await mealsController.create(body);
-                },
-                {
-                    body: MealValidation.createMeal(),
-                }
-            )
+            app
+                .use(isAuthenticated)
+                .post(
+                    '/',
+                    async ({ body }) => {
+                        await mealsController.create(body);
+                    },
+                    {
+                        body: MealValidation.createMeal(),
+                    }
+                )
+                .get('/', async ({ userJWT }) => {
+                    return await mealsController.getAllUserMeals(userJWT.id);
+                })
         );
     }
 }

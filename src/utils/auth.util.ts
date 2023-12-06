@@ -1,3 +1,4 @@
+import { JWTPayloadSpec } from '@elysiajs/jwt';
 import { AppType } from '@server';
 import { UnauthorizedError } from './errors.util';
 
@@ -15,5 +16,6 @@ export const isAuthenticated = (app: AppType) =>
         }
 
         userJWT.id = +userJWT.id as any;
-        return { userJWT };
+
+        return { userJWT } as unknown as { userJWT: JWTPayloadSpec & { id: number; email: string } };
     });
