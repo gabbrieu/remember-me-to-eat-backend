@@ -2,6 +2,7 @@ import { makeMealController } from '@application/factories';
 import { MealsController } from '@presentation/controllers';
 import { AppType } from '@server';
 import { isAuthenticated } from '@utils/auth.util';
+import { transformNumber } from '@utils/transform.util';
 import { MealValidation } from '@validations/meal';
 
 export class MealRoutes {
@@ -31,6 +32,16 @@ export class MealRoutes {
                 .get('/', async ({ userJWT }) => {
                     return await mealsController.getAllUserMeals(userJWT.id);
                 })
+                .get(
+                    '/:id',
+                    async ({ params }) => {
+                        return await mealsController.getOne(params.id);
+                    },
+                    {
+                        params: MealValidation.simpleIdParam(),
+                        transform: transformNumber,
+                    }
+                )
         );
     }
 }

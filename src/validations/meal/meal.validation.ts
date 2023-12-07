@@ -1,4 +1,5 @@
 import { UnitEnum } from '@infrastructure/entities';
+import { SimpleIdParam } from '@validations/user';
 import { t } from 'elysia';
 
 export abstract class MealValidation {
@@ -26,5 +27,9 @@ export abstract class MealValidation {
             schedule: t.RegExp('^([0-1][0-9]|2[0-3]):[0-5][0-9]$', { default: '17:00' }),
             idUser: t.Number(),
         });
+    }
+
+    static simpleIdParam(): SimpleIdParam {
+        return t.Object({ id: t.Number({ minimum: 0 }) });
     }
 }

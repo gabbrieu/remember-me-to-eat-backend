@@ -6,7 +6,7 @@ export enum Context {
     PARAMS = 'params',
 }
 
-type SimpleIdParam = TObject<{ id: TNumber }>;
+export type SimpleIdParam = TObject<{ id: TNumber }>;
 
 type UpdateUserParamOrBody<T extends Context.BODY | Context.PARAMS> = T extends Context.PARAMS
     ? SimpleIdParam
