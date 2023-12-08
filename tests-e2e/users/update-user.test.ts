@@ -1,7 +1,7 @@
 import { IUpdateUserDTO, UserWithoutPassword } from '@domain/entities';
 import { UserRoutes } from '@presentation/routes';
 import { app } from '@server';
-import { IUserSetup, UserSetup } from '@test/shared';
+import { IUserSetup, TestSetup, UserSetup } from '@test/shared';
 import { ErrorResponse } from '@utils/errors.util';
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test';
 
@@ -19,7 +19,7 @@ describe('Update one user route', () => {
     });
 
     afterAll(async () => {
-        await UserSetup.deleteAllData();
+        await TestSetup.deleteAllData();
         await appTest.app.stop();
     });
 

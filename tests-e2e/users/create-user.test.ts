@@ -1,7 +1,7 @@
 import { ICreateUserDTO, UserWithoutPassword } from '@domain/entities';
 import { UserRoutes } from '@presentation/routes';
 import { app } from '@server';
-import { UserSetup } from '@test/shared';
+import { TestSetup, UserSetup } from '@test/shared';
 import { afterAll, afterEach, describe, expect, it } from 'bun:test';
 
 describe('Create user route', () => {
@@ -9,7 +9,7 @@ describe('Create user route', () => {
     const baseURL: string = `${app.server?.hostname}:${app.server?.port}/users`;
 
     afterEach(async () => {
-        await UserSetup.deleteAllData();
+        await TestSetup.deleteAllData();
     });
 
     afterAll(async () => {

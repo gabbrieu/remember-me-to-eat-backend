@@ -1,7 +1,7 @@
 import { UserWithoutPassword } from '@domain/entities';
 import { UserRoutes } from '@presentation/routes';
 import { app } from '@server';
-import { IUserSetup, UserSetup } from '@test/shared';
+import { IUserSetup, TestSetup, UserSetup } from '@test/shared';
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test';
 
 describe('Logout route', () => {
@@ -18,7 +18,7 @@ describe('Logout route', () => {
     });
 
     afterAll(async () => {
-        await UserSetup.deleteAllData();
+        await TestSetup.deleteAllData();
         await appTest.app.stop();
     });
 

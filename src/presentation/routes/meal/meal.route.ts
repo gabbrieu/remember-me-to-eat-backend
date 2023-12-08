@@ -1,4 +1,5 @@
 import { makeMealController } from '@application/factories';
+import { Meal } from '@domain/entities';
 import { MealsController } from '@presentation/controllers';
 import { AppType } from '@server';
 import { isAuthenticated } from '@utils/auth.util';
@@ -22,19 +23,20 @@ export class MealRoutes {
                 .use(isAuthenticated)
                 .post(
                     '/',
-                    async ({ body }) => {
-                        await mealsController.create(body);
+                    async ({ body, set }): Promise<Meal> => {
+                        set.status = 'Created';
+                        return await mealsController.create(body);
                     },
                     {
                         body: MealValidation.createMeal(),
                     }
                 )
-                .get('/', async ({ userJWT }) => {
+                .get('/', async ({ userJWT }): Promise<Meal[]> => {
                     return await mealsController.getAllUserMeals(userJWT.id);
                 })
                 .get(
                     '/:id',
-                    async ({ params }) => {
+                    async ({ params }): Promise<Meal> => {
                         return await mealsController.getOne(params.id);
                     },
                     {

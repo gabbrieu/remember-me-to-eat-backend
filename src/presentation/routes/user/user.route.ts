@@ -1,4 +1,5 @@
 import { makeUsersController } from '@application/factories';
+import { UserWithoutPassword } from '@domain/entities';
 import { UsersController } from '@presentation/controllers';
 import { AppType } from '@server';
 import { isAuthenticated } from '@utils/auth.util';
@@ -22,7 +23,7 @@ export class UserRoutes {
             app
                 .post(
                     '/login',
-                    async ({ body, jwt, set, cookie: { auth } }) => {
+                    async ({ body, jwt, set, cookie: { auth } }): Promise<void> => {
                         const authToken: string = await userController.login(body, { jwt });
 
                         auth.set({
@@ -38,7 +39,7 @@ export class UserRoutes {
                 )
                 .post(
                     '/',
-                    async ({ body, set }) => {
+                    async ({ body, set }): Promise<UserWithoutPassword> => {
                         set.status = 'Created';
                         return await userController.create(body);
                     },
@@ -47,25 +48,25 @@ export class UserRoutes {
                     }
                 )
                 .use(isAuthenticated)
-                .get('/', async () => await userController.getAll())
-                .get('/:id', async ({ params }) => await userController.getOne(params.id), {
+                .get('/', async (): Promise<UserWithoutPassword[]> => await userController.getAll())
+                .get('/:id', async ({ params }): Promise<UserWithoutPassword> => await userController.getOne(params.id), {
                     params: UserValidation.simpleIdParam(),
                     transform: transformNumber,
                 })
-                .patch('/:id', async ({ body, params }) => await userController.update(params.id, body), {
+                .patch('/:id', async ({ body, params }): Promise<UserWithoutPassword> => await userController.update(params.id, body), {
                     body: UserValidation.updateUser(Context.BODY),
                     params: UserValidation.updateUser(Context.PARAMS),
                     transform: transformNumber,
                 })
                 .delete(
                     '/:id',
-                    async ({ params, set }) => {
+                    async ({ params, set }): Promise<void> => {
                         set.status = 'No Content';
                         await userController.delete(params.id);
                     },
                     { params: UserValidation.simpleIdParam(), transform: transformNumber }
                 )
-                .post('/logout', ({ set, cookie, cookie: { auth } }) => {
+                .post('/logout', ({ set, cookie, cookie: { auth } }): void => {
                     set.headers['Set-Cookie'] = serialize(auth.name!, '', {
                         expires: new Date('Thu, Jan 01 1970 00:00:00 UTC'),
                         path: '/',
