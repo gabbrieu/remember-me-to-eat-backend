@@ -6,15 +6,14 @@ import { ErrorResponse } from '@utils/errors.util';
 import { afterAll, beforeEach, describe, expect, it } from 'bun:test';
 
 describe('Delete user route', () => {
-    const appTest = new UserRoutes(app);
     const baseURL: string = `${app.server?.hostname}:${app.server?.port}/users`;
-    let userMock: UserWithoutPassword;
-    let cookie: string;
+    let userMock: UserWithoutPassword, cookie: string, appTest: UserRoutes;
 
     beforeEach(async () => {
         const userSetup: IUserSetup = await UserSetup.setup();
         userMock = userSetup.userMock;
         cookie = userSetup.cookie;
+        appTest = userSetup.appTest;
     });
 
     afterAll(async () => {
